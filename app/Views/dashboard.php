@@ -137,6 +137,10 @@
         }
 
         .status.unpaid {
+            background: #DC5C5C;
+        }
+
+        .status.paid {
             background: #ff9800;
         }
 
@@ -192,7 +196,9 @@
             <img src="<?php echo base_url('assets/images/logo.png') ?>" alt="Paraloan">
             <div class="icons">
                 <img src="<?php echo base_url('assets/images/notification.svg') ?>" alt="Notifications">
-                <img src="<?php echo base_url('assets/images/profile.svg') ?>" alt="Profile">
+                <a href="<?= site_url('/profile'); ?>">
+                    <img src="<?= base_url('assets/images/profile.svg'); ?>" alt="Profile">
+                </a>
                 <img src="<?php echo base_url('assets/images/settings.svg') ?>" alt="Settings">
             </div>
         </div>
@@ -210,6 +216,18 @@
                 <button class="btn" onclick="showHistory()">History</button>
                 <button class="btn btn-primary" onclick="window.location.href='<?php echo base_url('/request-loan'); ?>'">Request Loan</button>
             </div>
+
+            <?php if (session()->has('success')): ?>
+                <div class="alert alert-success">
+                    <?= session('success') ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (session()->has('error')): ?>
+                <div class="alert alert-danger">
+                    <?= session('error') ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div id="dashboard" class="content">
             <div class="table-responsive" style="max-height: 300px; overflow-y: scroll;">
@@ -231,7 +249,7 @@
                                 <td><?= $uid['order']; ?>/<?= $uid['period']; ?></td>
                                 <td><?= date('d-m-Y', strtotime($uid['start_date'])); ?></td>
                                 <td><?= date('d-m-Y', strtotime($uid['due_date'])); ?></td>
-                                <td><span class="status unpaid"><?= ($uid['status'] == 0) ? 'unpaid' : 'paid'; ?></span></td>
+                                <td><span class="status <?= ($uid['status'] == 0) ? 'unpaid' : 'paid'; ?>"><?= ($uid['status'] == 0) ? 'Unpaid' : 'Paid'; ?></span></td>
                                 <td><button class="pay-now-btn" onclick="window.location.href='<?= base_url('/pay/' . $uid['id']); ?>'">Pay Now</button></td>
                             </tr>
                         <?php endforeach; ?>
@@ -239,34 +257,6 @@
                 </table>
             </div>
             <div class="footer">Current Date: <?= date('d-m-Y'); ?></div>
-        </div>
-        <div id="history" class="content" style="display:none;">
-            <h2>History</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Bill Nominal</th>
-                        <th>Periods</th>
-                        <th>Request Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>T00101 <br> Rp 3.750.000</td>
-                        <td>2 Months</td>
-                        <td>01-12-2077</td>
-                        <td><span class="status unpaid">Uncompleted</span></td>
-                    </tr>
-                    <tr>
-                        <td>T00102 <br> Rp 3.750.000</td>
-                        <td>3 Months</td>
-                        <td>01-02-2078</td>
-                        <td><span class="status unpaid">Unpaid</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- <div class="back-btn" onclick="showDashboard()">Back</div> -->
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

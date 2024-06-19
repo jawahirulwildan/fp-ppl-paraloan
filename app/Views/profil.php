@@ -108,21 +108,21 @@
     <div class="welcome">Welcome back, <?php echo htmlspecialchars($userData['full_name']); ?></div>
     <div class="profile-info">
         <div class="profile-section left-column">
-            <h3><img src="<?php echo base_url('assets/images/person_icon.png') ?>" alt="Person Icon"> Personal Information</h3>
+            <h3><img src="<?php echo base_url('assets/images/person_icon.svg') ?>" alt="Person Icon"> Personal Information</h3>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($userData['email']); ?></p>
-            <p><strong>Phone Number:</strong> <?php echo htmlspecialchars($userData['phone']); ?></p>
+            <p><strong>Phone Number:</strong> <?php echo htmlspecialchars($userData['phone_number']); ?></p>
             <p><strong>Address:</strong> <?php echo htmlspecialchars($userData['address']); ?></p>
             <p><strong>Occupation:</strong> <?php echo htmlspecialchars($userData['occupation']); ?></p>
             <p><strong>Salary:</strong> Rp <?= number_format($userData['salary'], 0, '', '.'); ?></p>
             <button onclick="logout()">Logout</button>
         </div>
         <div class="profile-section right-column">
-            <h3><img src="<?php echo base_url('assets/images/bank_icon.png') ?>" alt="Bank Icon"> Bank Information</h3>
-            <p><strong>Bank Name:</strong> <?php echo htmlspecialchars($userData['bank_name']); ?></p>
+            <h3><img src="<?php echo base_url('assets/images/bank_icon.svg') ?>" alt="Bank Icon"> Bank Information</h3>
+            <p><strong>Bank Name:</strong> <?php echo htmlspecialchars($userData['bank']); ?></p>
             <p><strong>Account Number:</strong> <?php echo htmlspecialchars($userData['account_number']); ?></p>
-            <h3><img src="<?php echo base_url('assets/images/emergency_icon.png') ?>" alt="Emergency Icon"> Emergency Contacts</h3>
+            <h3><img src="<?php echo base_url('assets/images/emergency_icon.svg') ?>" alt="Emergency Icon"> Emergency Contacts</h3>
             <p><strong>Emergency Phone Number:</strong> <?php echo htmlspecialchars($userData['emergency_phone']); ?></p>
-            <p><strong>Relation to:</strong> <?php echo htmlspecialchars($userData['relation']); ?></p>
+            <p><strong>Relation to:</strong> <?php echo htmlspecialchars($userData['emergency_relation']); ?></p>
         </div>
     </div>
     <div class="back-btn" onclick="location.href='<?php echo base_url('dashboard'); ?>'">Back</div>

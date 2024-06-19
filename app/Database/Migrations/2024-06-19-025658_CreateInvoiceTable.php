@@ -50,6 +50,7 @@ class CreateInvoiceTable extends Migration
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
                 'null' => true,
+                'default' => 0
             ],
             'payment_date' => [
                 'type' => 'DATETIME',

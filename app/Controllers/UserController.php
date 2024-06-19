@@ -20,7 +20,6 @@ class UserController extends BaseController
         $validation->setRules($userModel->validationRules);
 
         if (!$validation->withRequest($this->request)->run()) {
-            // Validation failed, redirect back to registration form with errors
             return redirect()->to('/register')->withInput()->with('errors', $validation->getErrors());
         }
 

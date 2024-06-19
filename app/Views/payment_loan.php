@@ -96,9 +96,8 @@
         <hr>
         <p><span>Total</span><span>Rp <?= number_format($invoiceData['bill_nominal'] + 2500 + $invoiceData['penalty'], 2, ',', '.'); ?></span></p>
     </div>
-    <form action="payment_loan.php" method="post">
-        <input type="hidden" name="loan_id" value="10000">
-        
+    <form action="/pay/<?= $invoiceData['id']; ?>" method="post">
+        <input type="hidden" value="<?= $invoiceData['id']; ?>">        
         <div class="buttons">
             <button type="button" class="btn" onclick="window.location.href='<?php echo base_url('/dashboard'); ?>'">Return</button>
             <button type="submit" class="btn btn-primary">Pay Now</button>

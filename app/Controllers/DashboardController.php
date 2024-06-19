@@ -20,6 +20,17 @@ class DashboardController extends BaseController
         $this->invoiceModel = new InvoiceModel();
     }
 
+    public function profile(){
+        $userId = session('user_id');
+        $userData = $this->userModel->getUser($userId);
+
+        $data = [
+            'userData' => $userData,
+        ];
+
+        return view('profil', $data);
+    }
+
     public function index()
     {
         if (!session()->has('user_id')) {

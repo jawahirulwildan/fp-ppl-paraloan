@@ -113,8 +113,12 @@ class LoanController extends BaseController
 
         // Check if the loan exists and belongs to the current user
         if ($loan['user_id'] != $userId) {
-            // Redirect to an error page or display an error message
             return redirect()->to('/dashboard')->with('error', 'Unauthorized access.');
+        }
+
+        if ($invoiceData['status'] == 1) {
+            // Redirect to an error page or display an error message
+            return redirect()->to('/dashboard')->with('error', 'Loan');
         }
 
         $data = [
@@ -125,7 +129,23 @@ class LoanController extends BaseController
         return view('payment_loan', $data);
     }
 
-    public function payment(){
+    public function payment($id){
+        $invoiceData = $this->invoiceModel->getInvoice($id);
+        $loan = $this->loanModel->getUserLoan($invoiceData['loan_id']);
         $userId = session('user_id');
+
+        $this->invoiceModel->update($id,[
+                'status' => 1,
+                'payment_date' => date('Y-m-d H:i:s')
+            ]
+        );
+
+        $u = $this->userModel->getUser($userId);
+        $addbal = $loan['amount'] / $loan['period'];
+        $ub = $u['balance'] + $addbal;
+
+        $this->userModel->updateBalance($ub, $userId);
+
+        return redirect()->to('/dashboard')->with('success', 'Added Rp '. number_format($addbal, 0, '', '.') . ' to account');
     }
 }
