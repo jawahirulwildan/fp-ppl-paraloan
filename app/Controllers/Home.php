@@ -23,9 +23,10 @@ class Home extends BaseController
 
         if (!$user || !password_verify($password, $user['password'])) {
             // Invalid credentials
-            return redirect()->back()->withInput()->with('error', 'Invalid email or password');
+            // return redirect()->back()->withInput()->with('error', 'Invalid email or password');
+            return redirect()->to('/')->withInput()->with('error', 'Invalid email or password');
         }
-        
+
         $this->setUserSession($user);
 
         return redirect()->to('/dashboard');
@@ -40,5 +41,4 @@ class Home extends BaseController
 
         session()->set($userData);
     }
-    
 }

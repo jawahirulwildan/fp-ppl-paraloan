@@ -14,10 +14,10 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = 
+    protected $allowedFields    =
     [
-        'email', 'password', 'full_name', 'nik', 'phone_number', 
-        'address', 'occupation', 'salary', 'bank', 'account_number', 
+        'email', 'password', 'full_name', 'nik', 'phone_number',
+        'address', 'occupation', 'salary', 'bank', 'account_number',
         'emergency_phone', 'emergency_relation', 'balance'
     ];
 
@@ -66,5 +66,18 @@ class UserModel extends Model
 
         $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_BCRYPT);
         return $data;
+    }
+
+    public function getUser($userId = false)
+    {
+        if ($userId == false) {
+            return $this->findAll();
+        }
+        return $this->where(['id' => $userId])->first();
+    }
+
+    public function getUserLoans($userId)
+    {
+        return $this->db->table('loans')->where('user_id', $userId)->get()->getResultArray();
     }
 }
