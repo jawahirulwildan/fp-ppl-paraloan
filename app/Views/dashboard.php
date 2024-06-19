@@ -229,8 +229,8 @@
                             <tr>
                                 <td>loanid<?= $uid['id']; ?><br>Rp <?= number_format($uid['bill_nominal'], 0, '', '.'); ?></td>
                                 <td><?= $uid['order']; ?>/<?= $uid['period']; ?></td>
-                                <td><?= $uid['created_at']; ?></td>
-                                <td><?= $uid['due_date']; ?></td>
+                                <td><?= date('d-m-Y', strtotime($uid['start_date'])); ?></td>
+                                <td><?= date('d-m-Y', strtotime($uid['due_date'])); ?></td>
                                 <td><span class="status unpaid"><?= ($uid['status'] == 0) ? 'unpaid' : 'paid'; ?></span></td>
                                 <td><button class="pay-now-btn">Pay Now</button></td>
                             </tr>

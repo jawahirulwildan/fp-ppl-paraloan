@@ -16,3 +16,5 @@ $routes->get('/register', 'UserController::index');
 $routes->post('/register', 'UserController::register_user');
 
 $routes->get('/request-loan', 'LoanController::index');
+$routes->post('/request-loan', 'LoanController::continue');
+$routes->post('/confirmation-loan', 'LoanController::confirm');

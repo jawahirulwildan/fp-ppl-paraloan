@@ -33,6 +33,10 @@ class CreateInvoiceTable extends Migration
                 'type' => 'BOOLEAN',
                 'null' => false,
             ],
+            'start_date' => [
+                'type' => 'DATETIME',
+                'null' => false
+            ],
             'due_date' => [
                 'type' => 'DATETIME',
                 'null' => false,

@@ -111,34 +111,37 @@
 </head>
 
 <body>
-    <div class="container-med">
-        <h1>Request Loan</h1>
-        <div class="balance">
-            Balance limit to request
-            <div class="amount">Rp <?= number_format($userData['balance'], 0, '', '.'); ?>
-            </div>
+    <div class="card mb-3 p-3" style="width: 32rem;">
+        <div class="card-body">
+            <h3 class="card-title">Loan Confirmation</h3>
+            <h5>Summary</h5>
+            <form action="<?php echo base_url('/confirmation-loan'); ?>" method="post">
+                <div class="mb-1">
+                    <label for="nominal" class="form-label">Loan Nominal</label>
+                    <input type="number" class="form-control" id="nominal" name="nominal" value="<?= $userChoice['loan_amount']; ?>" readonly>
+                </div>
+                <div class="mb-1">
+                    <label for="period" class="form-label">Period</label>
+                    <input type="text" class="form-control" id="period" name="period" value="<?= $userChoice['installment_period']; ?>" readonly>
+                </div>
+                <div class="mb-1">
+                    <label for="interest" class="form-label">Interest</label>
+                    <input type="text" class="form-control" id="interest" name="interest" value="<?= $interest; ?>" readonly>
+                </div>
+                <div class="mb-1">
+                    <label for="bank" class="form-label">Bank Destination</label>
+                    <input type="text" class="form-control" id="bank" name="bank" value="<?= $userData['bank']; ?>" readonly>
+                </div>
+                <div class="mb-1">
+                    <label for="accountnum" class="form-label">Account Number</label>
+                    <input type="text" class="form-control" id="accountnum" name="accountnum" value="<?= $userData['account_number']; ?>" readonly>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="" class="btn px-5" style="background: #ff5f6d; color: white;">Return</a>
+                    <button type="submit" class="btn btn-primary px-5">Apply</button>
+                </div>
+            </form>
         </div>
-        <?php if (session()->has('error')) : ?>
-            <div class="alert alert-danger">melebihi balance</div>
-        <?php endif; ?>
-        <form action="<?php echo base_url('/request-loan'); ?>" method="post">
-            <label for="loan-amount">Loan Nominal to Request</label>
-            <input type="number" id="loan-amount" name="loan_amount" required value="100000">
-            <small>Please input without comma (,) and period (.), example: 1500000</small>
-
-            <label for="installment-period">Installment Period</label>
-            <select id="installment-period" name="installment_period" required>
-                <option value="1">1 Month</option>
-                <option value="3">3 Month</option>
-                <option value="6">6 Month</option>
-                <option value="12">12 Month</option>
-            </select>
-
-            <div class="buttons">
-                <button type="button" class="btn" onclick="window.location.href='<?php echo base_url('/dashboard'); ?>'">Return</button>
-                <button type="submit" class="btn btn-primary">Continue</button>
-            </div>
-        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

@@ -13,7 +13,10 @@ class InvoiceModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['order', 'period', 'status', 'due_date', 'bill_nominal', 'penalty', 'payment_date'];
+    protected $allowedFields    = [
+        'loan_id', 'order', 'period', 'status', 'start_date', 'due_date',
+        'bill_nominal', 'penalty', 'payment_date'
+    ];
 
     // Dates
     protected $useTimestamps = true;
@@ -38,4 +41,9 @@ class InvoiceModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getLoan($invoiceId)
+    {
+        return $this->select('loan_id')->where(['id' => $invoiceId])->first();
+    }
 }
