@@ -41,9 +41,8 @@ class InvoiceModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function getLoan($invoiceId)
+    public function getInvoice($invoiceId)
     {
-        return $this->select('loan_id')->where(['id' => $invoiceId])->first();
+        return $this->where(['id' => $invoiceId])->first();
     }
 }

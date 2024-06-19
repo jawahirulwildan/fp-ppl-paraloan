@@ -104,4 +104,28 @@ class LoanController extends BaseController
 
         return redirect()->to('/dashboard');
     }
+
+    public function indexPay($id){
+        $invoiceData = $this->invoiceModel->getInvoice($id);
+        $userId = session('user_id');
+
+        $loan = $this->loanModel->getUserLoan($invoiceData['loan_id']);
+
+        // Check if the loan exists and belongs to the current user
+        if ($loan['user_id'] != $userId) {
+            // Redirect to an error page or display an error message
+            return redirect()->to('/dashboard')->with('error', 'Unauthorized access.');
+        }
+
+        $data = [
+            'invoiceData' => $invoiceData,
+            'loan' => $loan
+        ];
+
+        return view('payment_loan', $data);
+    }
+
+    public function payment(){
+        $userId = session('user_id');
+    }
 }

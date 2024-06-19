@@ -232,7 +232,7 @@
                                 <td><?= date('d-m-Y', strtotime($uid['start_date'])); ?></td>
                                 <td><?= date('d-m-Y', strtotime($uid['due_date'])); ?></td>
                                 <td><span class="status unpaid"><?= ($uid['status'] == 0) ? 'unpaid' : 'paid'; ?></span></td>
-                                <td><button class="pay-now-btn">Pay Now</button></td>
+                                <td><button class="pay-now-btn" onclick="window.location.href='<?= base_url('/pay/' . $uid['id']); ?>'">Pay Now</button></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

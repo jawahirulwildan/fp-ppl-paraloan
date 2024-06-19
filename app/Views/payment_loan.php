@@ -1,19 +1,19 @@
 <?php
-session_start();
+// session_start();
 
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
+// if (!isset($_SESSION['username'])) {
+//     header("Location: login.php");
+//     exit();
+// }
 
-// Contoh mendapatkan informasi pembayaran dari database berdasarkan loan_id
-$loan_id = $_GET['loan_id'];
-$loan_info = [
-    'loan_id' => $loan_id,
-    'amount' => 'Rp 1.250.000',
-    'due_date' => '32-01-2078',
-    'status' => 'Overdue',
-];
+// // Contoh mendapatkan informasi pembayaran dari database berdasarkan loan_id
+// $loan_id = $_GET['loan_id'];
+// $loan_info = [
+//     'loan_id' => $loan_id,
+//     'amount' => 'Rp 1.250.000',
+//     'due_date' => '32-01-2078',
+//     'status' => 'Overdue',
+// ];
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ $loan_info = [
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #ff5f6d, #ffc371);
+            background: linear-gradient(to right, #DC5C5C, #26498D);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
             margin: 0;
         }
@@ -50,6 +50,8 @@ $loan_info = [
             margin-bottom: 1rem;
         }
         .info p {
+            display: flex;
+            justify-content: space-between;
             margin: 0.5rem 0;
             font-size: 1rem;
             color: #333;
@@ -85,19 +87,27 @@ $loan_info = [
 <div class="container">
     <h1>Payment Information</h1>
     <div class="info">
-        <p><strong>Loan ID:</strong> <?php echo htmlspecialchars($loan_info['loan_id']); ?></p>
-        <p><strong>Amount:</strong> <?php echo htmlspecialchars($loan_info['amount']); ?></p>
-        <p><strong>Due Date:</strong> <?php echo htmlspecialchars($loan_info['due_date']); ?></p>
-        <p><strong>Status:</strong> <?php echo htmlspecialchars($loan_info['status']); ?></p>
+        <p><strong>Details</strong></p>
+        <p><span>Order no. </span><span><?= $invoiceData['order']; ?> of <?= $invoiceData['period']?> </span></p>
+        <p><span>Monthly Charge</span><span>Rp <?= number_format($loan['amount']/$loan['period'], 2, ',', '.'); ?></span></p>
+        <p><span>Interest</span><span><?= $loan['interest']*100 ?>% </span></p>
+        <p><span>Admin fee</span><span>Rp 2.500,00</span></p>
+        <p><span>Penalty fee</span><span>Rp <?= number_format($invoiceData['penalty'], 2, ',', '.'); ?></span></p>
+        <hr>
+        <p><span>Total</span><span>Rp <?= number_format($invoiceData['bill_nominal'] + 2500 + $invoiceData['penalty'], 2, ',', '.'); ?></span></p>
     </div>
     <form action="payment_loan.php" method="post">
-        <input type="hidden" name="loan_id" value="<?php echo htmlspecialchars($loan_info['loan_id']); ?>">
+        <input type="hidden" name="loan_id" value="10000">
+        
         <div class="buttons">
-            <button type="button" class="btn" onclick="window.location.href='<?php echo base_url('dashboard'); ?>'">Return</button>
+            <button type="button" class="btn" onclick="window.location.href='<?php echo base_url('/dashboard'); ?>'">Return</button>
             <button type="submit" class="btn btn-primary">Pay Now</button>
         </div>
     </form>
 </div>
+</body>
+</html>
+
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

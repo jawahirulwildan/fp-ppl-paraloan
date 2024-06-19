@@ -43,4 +43,9 @@ class LoanModel extends Model
     {
         return $this->db->table('invoice')->where('loan_id', $loanId)->get()->getResultArray();
     }
+
+    public function getUserLoan($loanId)
+    {
+        return $this->where(['id' => $loanId])->first();
+    }
 }
