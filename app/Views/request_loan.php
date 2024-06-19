@@ -123,7 +123,7 @@
         <?php endif; ?>
         <form action="<?php echo base_url('/request-loan'); ?>" method="post">
             <label for="loan-amount">Loan Nominal to Request</label>
-            <input type="number" id="loan-amount" name="loan_amount" required value="100000">
+            <input type="number" id="loan-amount" name="loan_amount" required value="100000" min="50000">
             <small>Please input without comma (,) and period (.), example: 1500000</small>
 
             <label for="installment-period">Installment Period</label>

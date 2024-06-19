@@ -92,11 +92,15 @@ class LoanController extends BaseController
                 'status' => 0,
                 'start_date' => $start_date,
                 'due_date' => $end_date,
-                'bill_nominal' => $isian['nominal'] / $isian['period'],
+                'bill_nominal' => $isian['nominal'] * (1 + $isian['interest']) / $isian['period'],
                 'penalty' => 0
             ]);
             $start_date = $end_date;
         }
+
+        $u = $this->userModel->getUser($userId);
+        $ub = $u['balance'] - $isian['nominal'];
+        $this->userModel->updateBalance($ub, $userId);
 
         return redirect()->to('/dashboard');
     }

@@ -80,4 +80,15 @@ class UserModel extends Model
     {
         return $this->db->table('loans')->where('user_id', $userId)->get()->getResultArray();
     }
+
+    public function updateBalance($newBalance, $userId)
+    {
+        // Check if user exists
+        $user = $this->find($userId);
+        if ($user) {
+            // Update the user's balance
+            return $this->update($userId, ['balance' => $newBalance]);
+        }
+        return false; // User not found
+    }
 }
