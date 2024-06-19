@@ -114,8 +114,9 @@
             <p><strong>Address:</strong> <?php echo htmlspecialchars($userData['address']); ?></p>
             <p><strong>Occupation:</strong> <?php echo htmlspecialchars($userData['occupation']); ?></p>
             <p><strong>Salary:</strong> Rp <?= number_format($userData['salary'], 0, '', '.'); ?></p>
-            <button onclick="logout()">Logout</button>
-        </div>
+            <form action="<?php echo base_url('logout'); ?>" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>        </div>
         <div class="profile-section right-column">
             <h3><img src="<?php echo base_url('assets/images/bank_icon.svg') ?>" alt="Bank Icon"> Bank Information</h3>
             <p><strong>Bank Name:</strong> <?php echo htmlspecialchars($userData['bank']); ?></p>
@@ -128,11 +129,6 @@
     <div class="back-btn" onclick="location.href='<?php echo base_url('dashboard'); ?>'">Back</div>
 </div>
 
-<script>
-    function logout() {
-        // Clear session or perform other logout tasks here
-        location.href = '<?php echo base_url('index.php'); ?>'; // Redirect to index.php
-    }
-</script>
+
 </body>
 </html>

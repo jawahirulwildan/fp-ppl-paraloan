@@ -195,11 +195,19 @@
         <div class="header">
             <img src="<?php echo base_url('assets/images/logo.png') ?>" alt="Paraloan">
             <div class="icons">
-                <img src="<?php echo base_url('assets/images/notification.svg') ?>" alt="Notifications">
-                <a href="<?= site_url('/profile'); ?>">
-                    <img src="<?= base_url('assets/images/profile.svg'); ?>" alt="Profile">
-                </a>
-                <img src="<?php echo base_url('assets/images/settings.svg') ?>" alt="Settings">
+                <div style="display: flex; align-items: center;">
+                    <div style="height: 24px;">
+                        <img src="<?= base_url('assets/images/notification.svg') ?>" alt="Notifications" style="height: 100%;">
+                    </div>
+                    <div style="height: 24px; margin: 0 10px;">
+                        <a href="<?= site_url('/profile'); ?>">
+                            <img src="<?= base_url('assets/images/profile.svg'); ?>" alt="Profile" style="height: 100%;">
+                        </a>
+                    </div>
+                    <div style="height: 24px;">
+                        <img src="<?= base_url('assets/images/settings.svg') ?>" alt="Settings" style="height: 100%;">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="welcome">

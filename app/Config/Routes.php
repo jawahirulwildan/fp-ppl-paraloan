@@ -12,6 +12,7 @@ $routes->post('/', 'Home::login_user');
 
 $routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/profile', 'DashboardController::profile');
+$routes->post('/logout', 'DashboardController::logout');
 
 $routes->get('/register', 'UserController::index');
 $routes->post('/register', 'UserController::register_user');
