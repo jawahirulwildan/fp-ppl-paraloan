@@ -5,16 +5,19 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\LoanModel;
+use App\Models\InvoiceModel;
 
 class DashboardController extends BaseController
 {
     protected $userModel;
     protected $loanModel;
+    protected $invoiceModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->loanModel = new LoanModel();
+        $this->invoiceModel = new InvoiceModel();
     }
 
     public function index()
@@ -32,9 +35,20 @@ class DashboardController extends BaseController
         // $loanData = $this->loanModel->find($userId);
         $loanData = $this->userModel->getUserLoans($userId);
 
+        $userInvoices = array();
+        $userInvoicesData = array();
+        // Loop melalui $loanData
+        foreach ($loanData as $l) {
+            // Panggil getUserInvoices dan simpan hasilnya ke dalam array
+            $userInvoices[] = $this->loanModel->getUserInvoices($l['id']);
+        }
+        foreach ($userInvoices as $ui) {
+            $userInvoicesData = array_merge($userInvoicesData, $ui);
+        }
+
         $data = [
             'userData' => $userData,
-            'loanData' => $loanData
+            'userInvoicesData' => $userInvoicesData
         ];
 
         return view('dashboard', $data);

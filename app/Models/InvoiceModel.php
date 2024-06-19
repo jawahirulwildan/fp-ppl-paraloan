@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LoanModel extends Model
+class InvoiceModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'loans';
+    protected $table            = 'invoice';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['interest', 'period', 'amount'];
+    protected $allowedFields    = ['order', 'period', 'status', 'due_date', 'bill_nominal', 'penalty', 'payment_date'];
 
     // Dates
     protected $useTimestamps = true;
@@ -38,9 +38,4 @@ class LoanModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function getUserInvoices($loanId)
-    {
-        return $this->db->table('invoice')->where('loan_id', $loanId)->get()->getResultArray();
-    }
 }

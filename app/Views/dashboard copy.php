@@ -203,7 +203,7 @@
             <div>Your effective balance available: </div>
             <div class="amount">
                 <img src="<?php echo base_url('assets/images/wallet.svg') ?>" alt="Balance">
-                <span>Rp <?= number_format($userData['balance'], 0, '', '.'); ?></span>
+                <span>Rp <?php echo htmlspecialchars($userData['balance']); ?></span>
             </div>
 
             <div class="buttons">
@@ -212,32 +212,37 @@
             </div>
         </div>
         <div id="dashboard" class="content">
-            <div class="table-responsive" style="max-height: 300px; overflow-y: scroll;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Bill Nominal</th>
-                            <th>Order</th>
-                            <th>Start Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($userInvoicesData as $uid) : ?>
-                            <tr>
-                                <td>loanid<?= $uid['id']; ?><br>Rp <?= number_format($uid['bill_nominal'], 0, '', '.'); ?></td>
-                                <td><?= $uid['order']; ?>/<?= $uid['period']; ?></td>
-                                <td><?= $uid['created_at']; ?></td>
-                                <td><?= $uid['due_date']; ?></td>
-                                <td><span class="status unpaid"><?= ($uid['status'] == 0) ? 'unpaid' : 'paid'; ?></span></td>
-                                <td><button class="pay-now-btn">Pay Now</button></td>
-                            </tr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill Nominal</th>
+                        <th>Order</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($loanData) : ?>
+                        <?php foreach ($loanData as $l) : ?>
+                            <?php $start_date = date('d-m-Y', strtotime($l['created_at'])) ?>
+                            <?php for ($i = 1; $i <= $l['period']; $i++) : ?>
+                                <?php $end_date = date('d-m-Y', strtotime($start_date . ' +30 days')); ?>
+                                <tr>
+                                    <td>loanid<?= $l['id']; ?><br><?= $l['amount'] / $l['period']; ?></td>
+                                    <td><?= $i; ?>/<?= $l['period']; ?></td>
+                                    <td><?= $start_date; ?></td>
+                                    <td><?= $end_date; ?></td>
+                                    <td><span class="status paid">Paid</span></td>
+                                    <td><button class="pay-now-btn" disabled>Pay Now</button></td>
+                                </tr>
+                                <?php $start_date = date('d-m-Y', strtotime($start_date . ' +30 days'));  ?>
+                            <?php endfor; ?>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php endif; ?>
+                </tbody>
+            </table>
             <div class="footer">Current Date: <?= date('d-m-Y'); ?></div>
         </div>
         <div id="history" class="content" style="display:none;">

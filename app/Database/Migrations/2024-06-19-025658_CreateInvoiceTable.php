@@ -26,6 +26,9 @@ class CreateInvoiceTable extends Migration
                 'type' => 'INT',
                 'null' => false,
             ],
+            'period' => [
+                'type' => 'INT'
+            ],
             'status' => [
                 'type' => 'BOOLEAN',
                 'null' => false,
@@ -63,7 +66,7 @@ class CreateInvoiceTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true); // Primary key
-        $this->forge->addForeignKey('loan_id', 'loans', 'id', 'CASCADE', 'CASCADE'); //foreign key laon
+        $this->forge->addForeignKey('loan_id', 'loans', 'id', 'CASCADE', 'CASCADE'); //foreign key loan
         $this->forge->createTable('invoice');
     }
 

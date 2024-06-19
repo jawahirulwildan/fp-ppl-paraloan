@@ -14,7 +14,7 @@ class UserController extends BaseController
     }
 
     public function register_user()
-    {        
+    {
         $userModel = new UserModel();
         $validation = \Config\Services::validation();
         $validation->setRules($userModel->validationRules);
@@ -33,7 +33,7 @@ class UserController extends BaseController
         // Example:
         // $idCard->move(ROOTPATH . 'public/uploads', 'id_card.jpg');
 
-        
+
 
         // Prepare user data for insertion
         $userData = array(
@@ -50,7 +50,7 @@ class UserController extends BaseController
             'emergency_phone' => $this->request->getVar('emergency_phone'),
             'emergency_relation' => $this->request->getVar('emergency_relation'),
             'created_at' => date('Y-m-d H:i:s'),
-            'balance' => '500000'
+            'balance' => '10000000'
         );
 
         // Insert user data into database
